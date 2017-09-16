@@ -1,2 +1,1 @@
-# simple-ts-message-list
-Simple Typescript message list class.
+# simple-ts-models
