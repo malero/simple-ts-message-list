@@ -88,4 +88,14 @@ describe('MessageList', () => {
         });
         expect(list.length).toEqual(0);
     });
+
+    it("should cache list getter", () => {
+        const messageList = new MessageList({
+            'foo': ['bar', 'baz']
+        }),
+            list = messageList.list;
+        expect(list).toBe(messageList.list);
+        messageList.add('bar', 'baz');
+        expect(list).not.toBe(messageList.list);
+    });
 });
