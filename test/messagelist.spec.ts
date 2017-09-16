@@ -89,7 +89,7 @@ describe('MessageList', () => {
         expect(list.length).toEqual(0);
     });
 
-    it("should cache list getter", () => {
+    it("should cache list getter result", () => {
         const messageList = new MessageList({
             'foo': ['bar', 'baz']
         }),
