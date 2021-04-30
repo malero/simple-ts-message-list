@@ -18,11 +18,11 @@ var MessageList = /** @class */ (function () {
         }
     };
     MessageList.prototype.add = function (field, errors, replace) {
+        var _a;
         if (replace === void 0) { replace = false; }
         this.merge((_a = {},
             _a[field] = typeof errors == 'string' ? [errors] : errors,
             _a), replace);
-        var _a;
     };
     MessageList.prototype.merge = function (messages, replace) {
         var _this = this;
@@ -32,12 +32,17 @@ var MessageList = /** @class */ (function () {
         this._cachedList = undefined;
         var keys = this.keys;
         var _loop_1 = function (field) {
-            if (messages[field] instanceof Array) {
+            if (!messages.hasOwnProperty(field))
+                return "continue";
+            var message = messages[field];
+            if (message instanceof Array) {
                 if (!replace && keys.indexOf(field) > -1) {
-                    messages[field].map(function (x) { _this[field].push(x); });
+                    message.map(function (x) {
+                        _this[field].push(x);
+                    });
                 }
-                else if (messages[field].length > 0) {
-                    this_1[field] = messages[field];
+                else if (message.length > 0) {
+                    this_1[field] = message;
                 }
             }
         };
@@ -58,7 +63,7 @@ var MessageList = /** @class */ (function () {
             this._cachedList = list;
             return list;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(MessageList.prototype, "keys", {
@@ -67,14 +72,14 @@ var MessageList = /** @class */ (function () {
             keys.splice(keys.indexOf('_cachedList'), 1);
             return keys;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     Object.defineProperty(MessageList.prototype, "length", {
         get: function () {
             return this.keys.length;
         },
-        enumerable: true,
+        enumerable: false,
         configurable: true
     });
     return MessageList;
